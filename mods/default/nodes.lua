@@ -182,9 +182,9 @@ minetest.register_node("default:stone", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:cobble", {
-	description = "Cobblestone",
-	tiles = {"default_cobble.png"},
+minetest.register_node("default:tarmac", {
+	description = "Tarmac",
+	tiles = {"default_tarmac.png"},
 	is_ground_content = false,
 	groups = {cracky = 3, stone = 2},
 	sounds = default.node_sound_stone_defaults(),
