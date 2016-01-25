@@ -195,6 +195,7 @@ minetest.register_node("default:wall", {
 	drawtype = "mesh",
 	mesh = "wall.obj",
 	paramtype = "light",
+	paramtype2 = "facedir",
 	tiles = {"default_wall.png"},
 	is_ground_content = false,
 	groups = {cracky = 3, stone = 2},
