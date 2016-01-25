@@ -190,6 +190,38 @@ minetest.register_node("default:tarmac", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("default:wall", {
+	description = "Wall",
+	drawtype = "mesh",
+	mesh = "wall.obj",
+	paramtype = "light",
+	tiles = {"default_wall.png"},
+	is_ground_content = false,
+	groups = {cracky = 3, stone = 2},
+	sounds = default.node_sound_stone_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {{-0.05,0.5,-0.5,0.05,2.4,0.5},
+				{-0.5,-0.5,-0.5,0.5,0.5,0.5},}
+	},
+	collision_box = {
+		type = "fixed",
+		fixed = {{-0.05,0.5,-0.5,0.05,2.4,0.5},
+				{-0.5,-0.5,-0.5,0.5,0.5,0.5},}
+	},
+})
+
+minetest.register_node("default:tyre_wall", {
+	description = "Tyre wall",
+	drawtype = "mesh",
+	mesh = "tyres.obj",
+	paramtype = "light",
+	tiles = {"default_tyre.png"},
+	is_ground_content = false,
+	groups = {cracky = 3, stone = 2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("default:stonebrick", {
 	description = "Stone Brick",
 	tiles = {"default_stone_brick.png"},
