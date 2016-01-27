@@ -1,7 +1,10 @@
--- Minetest 0.4 mod: default
--- See README.txt for licensing and other information.
-
--- The API documentation in here was moved into game_api.txt
+--------------------------------------------------------------------------------------------
+------------------------------- Gran-Prix Game ver: 0.1 :D ---------------------------------
+--------------------------------------------------------------------------------------------
+--Mod by Pinkysnowman                                                                     --
+--(c)2015                                                                                 --
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 
 -- Definitions made by this mod that other mods can use too
 default = {}
@@ -39,4 +42,4 @@ dofile(minetest.get_modpath("default").."/functions.lua")
 dofile(minetest.get_modpath("default").."/nodes.lua")
 dofile(minetest.get_modpath("default").."/mapgen.lua")
 dofile(minetest.get_modpath("default").."/player.lua")
-dofile(minetest.get_modpath("default").."/aliases.lua")
+dofile(minetest.get_modpath("default").."/inv.lua")

@@ -1,36 +1,31 @@
--- Minetest 0.4 mod: player
--- See README.txt for licensing and other information.
+--------------------------------------------------------------------------------------------
+------------------------------- Gran-Prix Game ver: 0.1 :D ---------------------------------
+--------------------------------------------------------------------------------------------
+--Mod by Pinkysnowman                                                                     --
+--(c)2015                                                                                 --
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 
--- Player animation blending
--- Note: This is currently broken due to a bug in Irrlicht, leave at 0
 local animation_blend = 0
 
 default.registered_player_models = { }
 
--- Local for speed.
 local models = default.registered_player_models
 
 function default.player_register_model(name, def)
 	models[name] = def
 end
 
--- Default player appearance
 default.player_register_model("character.b3d", {
 	animation_speed = 30,
 	textures = {"character.png", },
 	animations = {
-		-- Standard animations.
 		stand     = { x=  0, y= 79, },
-		lay       = { x=162, y=166, },
 		walk      = { x=168, y=187, },
 		mine      = { x=189, y=198, },
-		walk_mine = { x=200, y=219, },
-		-- Extra animations (not currently used by the game).
-		sit       = { x= 81, y=160, },
 	},
 })
 
--- Player stats and animations
 local player_model = {}
 local player_textures = {}
 local player_anim = {}
@@ -46,7 +41,6 @@ function default.player_get_animation(player)
 	}
 end
 
--- Called when a player's appearance needs to be updated
 function default.player_set_model(player, model_name)
 	local name = player:get_player_name()
 	local model = models[model_name]
@@ -90,13 +84,10 @@ function default.player_set_animation(player, anim_name, speed)
 	player:set_animation(anim, speed or model.animation_speed, animation_blend)
 end
 
--- Update appearance when the player joins
 minetest.register_on_joinplayer(function(player)
 	default.player_attached[player:get_player_name()] = false
 	default.player_set_model(player, "character.b3d")
 	player:set_local_animation({x=0, y=79}, {x=168, y=187}, {x=189, y=198}, {x=200, y=219}, 30)
-	
-	-- set GUI
 	if not minetest.setting_getbool("creative_mode") then
 		player:set_inventory_formspec(default.gui_survival_form)
 	end
@@ -111,11 +102,9 @@ minetest.register_on_leaveplayer(function(player)
 	player_textures[name] = nil
 end)
 
--- Localize for better performance.
 local player_set_animation = default.player_set_animation
 local player_attached = default.player_attached
 
--- Check each player and apply animations
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
@@ -125,31 +114,10 @@ minetest.register_globalstep(function(dtime)
 			local controls = player:get_player_control()
 			local walking = false
 			local animation_speed_mod = model.animation_speed or 30
-
-			-- Determine if the player is walking
-			if controls.up or controls.down or controls.left or controls.right then
-				walking = true
-			end
-
-			-- Determine if the player is sneaking, and reduce animation speed if so
 			if controls.sneak then
 				animation_speed_mod = animation_speed_mod / 2
 			end
-
-			-- Apply animations based on what the player is doing
-			if player:get_hp() == 0 then
-				player_set_animation(player, "lay")
-			elseif walking then
-				if player_sneak[name] ~= controls.sneak then
-					player_anim[name] = nil
-					player_sneak[name] = controls.sneak
-				end
-				if controls.LMB then
-					player_set_animation(player, "walk_mine", animation_speed_mod)
-				else
-					player_set_animation(player, "walk", animation_speed_mod)
-				end
-			elseif controls.LMB then
+			if controls.LMB then
 				player_set_animation(player, "mine")
 			else
 				player_set_animation(player, "stand", animation_speed_mod)
